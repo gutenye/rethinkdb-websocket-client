@@ -6,7 +6,8 @@ var r = RethinkdbWebsocketClient.rethinkdb;
 var options = {
   host: 'localhost', // hostname of the websocket server
   port: 8015,        // port number of the websocket server
-  path: '/db',       // HTTP path to websocket route
+  path: '/',       // HTTP path to websocket route
+  wsProtocols: ['binary'],
   secure: false,     // set true to use secure TLS websockets
   db: 'test',        // default database, passed to rethinkdb.connect
 };
@@ -17,7 +18,7 @@ var appDiv = document.getElementById('app');
 appDiv.innerHTML = 'Loading...';
 
 // Construct a RethinkDB query to list all rows in the 'turtles' table
-var query = r.table('turtles');
+var query = r.table('a');
 
 connPromise.then(function(conn) {
   // Run the query once the WebSocket is connected
