@@ -7,5 +7,22 @@
 </head>
 <body>
 </body>
-<script src="../dist/index.js"></script>
+<script src="../dist/browser.js"></script>
+<script>
+  var pd = console.log.bind(console)
+
+  var r = Rethinkdb.rethinkdb
+  Rethinkdb.connect({
+    port: 8015,
+    path: "/",
+    wsProtocols: ["binary"],
+    db: "aiDevelopment"
+  }).then(conn => {
+    r.table("bookmarks").filter({}).run(conn).then(ret => {
+      pd('ret', ret.toArray().then(v => {
+        pd(v)
+      }))
+    })
+  })
+</script>
 </html>
